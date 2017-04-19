@@ -1,0 +1,22 @@
+body {
+	background-color: #fafafa;
+}
+
+.header {
+	border-bottom: 1px solid rgba(0,0,0,.0975);
+	display: block;
+	background-color: #ffffff;
+}
+
+.logout, .logo, .montage{
+	display: inline;
+}
+
+.mnt, .lgt{
+	margin-top: 25px;
+	margin-right: 8px;
+	height: 60px;
+	width:60px;
+	float: right;
+	display: inline;
+}
