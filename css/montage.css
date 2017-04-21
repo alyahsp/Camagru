@@ -13,3 +13,16 @@
 	font-style: italic;
 	color: #999;
 }
+
+.divider{
+	display: block;
+}
+.main{
+	display: inline-block;
+	width: 70%;
+}
+
+.side{
+	display: inline-block;
+	width: 30%;
+}
