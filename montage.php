@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	if ($_SESSION['logged_user'])
+	if ($_SESSION['logged_user'] !== "")
 	{
 ?>
 <!DOCTYPE html>

@@ -33,11 +33,31 @@
 			$subject = "Camagru - Confirm Your Account";
 			$message = "To create your account, confirm by clicking on the link below <br/> <a href='http://localhost:8080/Camagru/create.php?uid=" . $_POST['login'] . "'>Confirm account</a>";
 			echo $mesage . "\n";
-			// $headers = "From: $fromTitle <$emailFrom>\r\n";
-			// $headers .= "Reply-To: " . $emailFrom . "\r\n";
+			$headers = "From: " . $emailFrom . "\r\n";
 			$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 			mail($emailTo, $subject, $message, $headers);
-			echo "Email sent";
+?>
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Camagru</title>
+		<link rel="stylesheet" href="css/header.css">
+	</head>
+	<body>
+	<?php
+		include "header.php";
+	?>
+	<h1>Thank you for signing up!</h1><br/>
+	<h2>An e-mail was sent to confirm your account!</h2>
+	<div class="footer">
+		<p class="sp">spalmaro 2017</p>
+	</div>
+	</body>
+</html>
+<?php
 		}
+	}
+	else {
+		echo "An error has occurred";
 	}
 ?>

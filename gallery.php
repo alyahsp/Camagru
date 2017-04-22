@@ -6,9 +6,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Camagru - Montage</title>
+		<title>Camagru - Gallery</title>
 		<link rel="stylesheet" href="css/header.css">
-		<link rel="stylesheet" href="css/montage.css">
+		<link rel="stylesheet" href="css/gallery.css">
 	</head>
 	<body>
 	<?php

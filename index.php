@@ -1,6 +1,7 @@
 <?php
 	require_once('./config/setup.php');
 	session_start();
+	$_SESSION['logged_user'] = "";
 ?>
 <!DOCTYPE html>
 <html>

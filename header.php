@@ -6,7 +6,7 @@
 		</a>
 	</div>
 	<div class="logout">
-		<a href="logout.php">
+		<a href="index.php">
 			<img class="lgt" alt="Logout" src="img/logout.svg">
 		</a>
 	</div>
