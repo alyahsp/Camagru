@@ -6,7 +6,7 @@
 		</a>
 	</div>
 	<div class="logout">
-		<a href="logout.php">
+		<a href="index.php">
 			<img class="lgt" alt="Logout" src="img/logout.svg">
 		</a>
 	</div>
@@ -14,5 +14,8 @@
 		<a href="montage.php">
 			<img class="mnt" alt="Montage" src="img/montage.svg">
 		</a>
+	</div>
+	<div class="footer">
+		<p class="sp">spalmaro 2017</p>
 	</div>
 </div>
