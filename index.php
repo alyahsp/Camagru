@@ -1,7 +1,8 @@
 <?php
 	require_once('./config/setup.php');
 	session_start();
-	$_SESSION['logged_user'] = "";
+	if (isset($_SESSION['logged_user']) && $_SESSION['logged_user'] !== "")
+		header('Location: gallery.php');
 ?>
 <!DOCTYPE html>
 <html>

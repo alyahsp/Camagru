@@ -43,9 +43,21 @@
 		<link rel="stylesheet" href="css/header.css">
 	</head>
 	<body>
-	<?php
-		include "header.php";
-	?>
+		<div class="header">
+			<div class="logo">
+				<a href="gallery.php">
+					<img alt="Camagru" src="img/Camagru.png">
+				</a>
+			</div>
+			<div class="logout">
+				<a href="index.php">
+					<img class="lgn" alt="Login" src="img/login.svg">
+				</a>
+			</div>
+			<div class="footer">
+				<p class="sp">spalmaro 2017</p>
+			</div>
+		</div>
 	<h1>Thank you for signing up!</h1><br/>
 	<h2>An e-mail was sent to confirm your account!</h2>
 	<div class="footer">

@@ -15,7 +15,8 @@
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		if (!$row)
 		{
-			echo "Invalid Login or Password";
+			echo "<p>Invalid Login or Password<p>";
+			include "index.php";
 			return;
 		}
 		else

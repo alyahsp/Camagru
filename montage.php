@@ -18,22 +18,23 @@
 		<div class="main">
 			<div class="camera">
 				<video id="video"></video>
+				<button id="startbutton">Create Preview</button>
 			</div>
 			<div class="filter">
 				<form action="add_filter.php" method="post">
-					<input type="submit" id="startbutton" value = "Prendre une photo">
 					<input type="radio" name="filter" value="crown" checked>
-						<img width="100" height="100" src="./img/crown.png">
+						<img width="100" height="100" src="./filters/crown.png">
 					<input type="radio" name="filter" value="kiss">
-						<img width="100" height="100" src="./img/kiss.png">
+						<img width="100" height="90" src="./filters/kiss.png">
 					<input type="radio" name="filter" value="eyes">
-						<img width="100" height="100" src="./img/eyes.png">
+						<img width="90" height="90" src="./filters/eyes.png">
 				</form>
 			</div>
+			<img id="photo">
 		</div>
 		<canvas id="canvas"></canvas>
 		<div class="side">
-			<img id="photo">
+			<img id="savedphoto">
 		</div>
 	</div>
 	<div class="footer">
