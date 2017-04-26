@@ -1,22 +1,3 @@
-<<<<<<< HEAD
-||||||| merged common ancestors
-.footer{
-	border-top: 1px solid rgba(0,0,0,.0975);
-	position: fixed;
-	bottom: 0;
-	width: 100%;
-	background-color: white;
-}
-
-.sp{
-	float: right;
-	margin-right: 40px;
-	font-family: sans-serif;
-	font-style: italic;
-	color: #999;
-}
-
-=======
 #video {
 	border: 1px solid black;
 	box-shadow: 2px 2px 3px black;
@@ -56,7 +37,7 @@
 	margin-right: auto;
 	display: inline-block;
 }
->>>>>>> d8958c1cfd83c35137916671d929bc2669ae5375
+
 .divider{
 	/*width: 720px;*/
 	margin-top: 50px;
