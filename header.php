@@ -15,4 +15,7 @@
 			<img class="mnt" alt="Montage" src="img/montage.svg">
 		</a>
 	</div>
+	<div class="footer">
+		<p class="sp">spalmaro 2017</p>
+	</div>
 </div>

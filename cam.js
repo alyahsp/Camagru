@@ -2,11 +2,10 @@
 
 	var streaming = false,
 	video	  = document.querySelector('#video'),
-	cover	  = document.querySelector('#cover'),
 	canvas	 = document.querySelector('#canvas'),
 	photo	  = document.querySelector('#photo'),
 	startbutton  = document.querySelector('#startbutton'),
-	width = 320,
+	width = 420,
 	height = 0;
 
 	navigator.getMedia = ( navigator.getUserMedia ||
@@ -56,4 +55,5 @@
 		takepicture();
 		ev.preventDefault();
 	}, false);
+
 })();

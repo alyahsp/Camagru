@@ -11,7 +11,9 @@
 	</head>
 	<body>
 		<div class="connect_boxes">
-			<img alt="Camagru" src="img/Camagru.png">
+			<a href="gallery.php">
+				<img alt="Camagru" src="img/Camagru.png">
+			</a>
 			<div class="new_client">
 				<h3>Create Account</h3>
 				<form action="email.php" method="post">
@@ -31,6 +33,7 @@
 					<input class="txtbox" type="password" name="passwd" placeholder="Password" value=""/><br/>
 					<input class="button" type="submit" name="submit" value="Login" /> <br />
 				</form>
+				<a href="forgotpwd.php">Forgot Password?</a>
 		</div>
 	</body>
 </html>
