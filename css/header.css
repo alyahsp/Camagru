@@ -12,7 +12,7 @@ body {
 	display: inline;
 }
 
-.mnt, .lgt{
+.mnt, .lgt, .lgn{
 	margin-top: 25px;
 	margin-right: 8px;
 	height: 60px;

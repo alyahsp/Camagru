@@ -11,31 +11,7 @@
 		<link rel="stylesheet" href="css/montage.css">
 		<script>
 
-		function placefilter()
-		{
-			if (node)
-				node.parentNode.removeChild(node);
-			node = 0;
-			var chosen;
-			var filters = document.getElementsByName('filter');
-			for (var i = 0; i < 5; i++)
-			{
-				if (filters[i].checked)
-					chosen = filters[i].value;
-			}
-			var node = document.createElement("img");
-			node.src = "filters/"+chosen+".png";
-			node.id = "chosen";
-			document.getElementById("main").appendChild(node);
-			node.style.position = "absolute";
-			node.style.left ="450px";
-			node.style.top = "630px";
-			node.style.width ="100px";
-			node.style.height ="100px";
-		}
-
 		var xhr = new XMLHttpRequest;
-
 		xhr.onreadystatechange = ensureReadiness;
 
 		function ensureReadiness() {
@@ -47,29 +23,49 @@
 			}
 		}
 
-		// function isfilter()
-		// {
-		// 	var chosen;
-		// 	var filters = document.getElementsByName('filter');
-		// 	for (var i = 0; i < 5; i++)
-		// 	{
-		// 		if (filters[i].checked)
-		// 			chosen = filters[i].value;
-		// 	}
-		// 	var div = document.createElement("div");
-		// 	div.id = "remove";
-		// 	div = document.getElementById("divider").appendChild(div);
-		// 	img = document.createElement("img");
-		// 	img = div.appendChild(img);
-		// 	img.src = "filters/"+chosen+".png";
-		// 	img.style.position = "absolute";
-		// 	img.style.left = String(ev.pageX + 1) + "px";
-		// 	img.style.top = String(ev.pageY + 1) + "px";
-		// }
-		// function putfilter()
-		// {
-		//
-		// }
+		function chosenfilter()
+		{
+			var chosen;
+			var filters = document.getElementsByName('filter');
+			for (var i = 0; i < 5; i++)
+			{
+				if (filters[i].checked)
+					chosen = filters[i].value;
+			}
+			return chosen;
+		}
+
+		function placefilter()
+		{
+			var check;
+			if (check = document.getElementById("chosen"))
+				check.parentNode.removeChild(check);
+			check = 0;
+			var chosen = chosenfilter();
+			var node = document.createElement("img");
+			node.src = "filters/"+chosen+".png";
+			node.id = "chosen";
+			document.getElementById("preview").appendChild(node);
+			node.style.position = "absolute";
+			node.style.left ="45%";
+			node.style.top = "48%";
+			node.style.width ="100px";
+			node.style.height ="100px";
+			node.draggable = "true";
+			var save = document.getElementById("save");
+			save.disabled = false;
+		}
+
+		function save_img()
+		{
+			var chosen = chosenfilter();
+			var img = document.getElementById("photo");
+			var data = "src=" + img.src + "&filter=" + chosen;
+			xhr.open("POST", "add_filter.php", true);
+			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhr.send(data);
+		}
+
 		</script>
 	</head>
 	<body>
@@ -83,22 +79,27 @@
 				<button id="startbutton" onclick="placefilter()">Create Preview</button>
 			</div>
 			<div class="filter">
-				<form action="add_filter.php" method="post">
-					<input type="radio" name="filter" value="crown" checked>
+				<form>
+					<input type="radio" name="filter" value="flower" checked>
+						<img width="55" height="55" src="./filters/flower.png">
+					<input type="radio" name="filter" value="stars">
+						<img width="55" height="55" src="./filters/stars.png">
+					<input type="radio" name="filter" value="crown">
 						<img width="55" height="55" src="./filters/crown.png">
-					<input type="radio" name="filter" value="kiss">
-						<img width="55" height="45" src="./filters/kiss.png">
-					<input type="radio" name="filter" value="eyes">
-						<img width="55" height="55" src="./filters/eyes.png">
 					<input type="radio" name="filter" value="fire">
 						<img width="55" height="55" src="./filters/fire.png">
 					<input type="radio" name="filter" value="hearts">
 						<img width="55" height="55" src="./filters/hearts.png">
 				</form>
 			</div>
-			<img onmousemove="isfilter()" onclick="putfilter()" id="photo">
+			<canvas id="canvas"></canvas>
+			<div id="preview">
+				<img id="photo">
+				<form action="add_filter.php" method="post">
+					<input type="submit" id="save" disabled onclick="save_img()" name="save" value="Save">
+				</form>
+			</div>
 		</div>
-		<canvas id="canvas"></canvas>
 		<div class="side">
 			<img id="savedphoto">
 		</div>
