@@ -1,7 +1,11 @@
 <?php
 	session_start();
-	if ($_SESSION['logged_user'] !== "" || !isset($_SESSION['logged_user']))
+	if ($_SESSION['logged_user'] === "" || !isset($_SESSION['logged_user']))
 	{
+		echo "<p>Login or Create an account to access this page</p>";
+		include "index.php";
+		return;
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -37,37 +41,15 @@
 			return chosen;
 		}
 
-		function placefilter()
-		{
-			var check;
-			if (check = document.getElementById("chosen"))
-				check.parentNode.removeChild(check);
-			check = 0;
-			var chosen = chosenfilter();
-			var node = document.createElement("img");
-			node.src = "filters/"+chosen+".png";
-			node.id = "chosen";
-			document.getElementById("preview").appendChild(node);
-			node.style.position = "absolute";
-			node.style.left ="45%";
-			node.style.top = "48%";
-			node.style.width ="100px";
-			node.style.height ="100px";
-			node.draggable = "true";
-			var save = document.getElementById("save");
-			save.disabled = false;
-		}
-
 		function save_img()
 		{
 			var chosen = chosenfilter();
 			var img = document.getElementById("photo");
-			var data = "src=" + img.src + "&filter=" + chosen;
-			xhr.open("POST", "add_filter.php", true);
+			var tosend = "src=" + img.src + "&filter=" + chosen;
+			xhr.open("POST", "save.php", true);
 			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xhr.send(data);
+			xhr.send(tosend);
 		}
-
 		</script>
 	</head>
 	<body>
@@ -78,7 +60,7 @@
 		<div id="main">
 			<div class="camera">
 				<video id="video"></video>
-				<button id="startbutton" onclick="placefilter()">Create Preview</button>
+				<button id="startbutton">Create Preview</button>
 			</div>
 			<div class="filter">
 				<form>
@@ -97,8 +79,8 @@
 			<canvas id="canvas"></canvas>
 			<div id="preview">
 				<img id="photo">
-				<button id="save" disabled onclick="save_img()" name="save">Save</button>
 			</div>
+			<button id="save" disabled onclick="save_img()">Save</button>
 		</div>
 		<div class="side">
 			<img id="savedphoto">
@@ -110,11 +92,3 @@
 	</body>
 		<script src="cam.js"></script>
 </html>
-<?php
-	}
-	else
-	{
-		echo "<p>Login or Create an account to access this page</p>";
-		include "index.php";
-	}
-?>
