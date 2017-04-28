@@ -21,6 +21,8 @@
 			if(xhr.status !== 200) {
 				return;
 			}
+			else if (xhr.readyState == 4)
+				console.log(xhr.responseText);
 		}
 
 		function chosenfilter()
@@ -95,9 +97,7 @@
 			<canvas id="canvas"></canvas>
 			<div id="preview">
 				<img id="photo">
-				<form action="add_filter.php" method="post">
-					<input type="submit" id="save" disabled onclick="save_img()" name="save" value="Save">
-				</form>
+				<button id="save" disabled onclick="save_img()" name="save">Save</button>
 			</div>
 		</div>
 		<div class="side">
