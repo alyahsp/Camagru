@@ -36,27 +36,35 @@
 }
 
 #main{
-	/*display: inline-block;*/
+	/*display: flex;*/
 	width: 420px;
-	margin-left:auto;
-	margin-right:auto;
+	height:800px;
+	/*margin-left:auto;
+	margin-right:auto;*/
+	overflow: scroll;
+	background-color: white;
 }
 
-.filter > div{
+/*.filter > div{
 	display: inline-block;
 	zoom: 1;
 	width: 25%;
 	text-align: center;
-}
+}*/
 
 .divider{
 	/*width: 720px;*/
 	margin-top: 50px;
+	overflow: scroll;
+	/*display: inline-block;*/
 }
 
 
 .side{
-	/*display: inline-block;*/
+	float: right;
+	/*display: flex;*/
+	overflow:scroll;
 	margin-top: 100px;
 	width: 340px;
+	height: 840px;
 }

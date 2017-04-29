@@ -29,8 +29,16 @@ if (isset($_SESSION['logged_user']) && $_SESSION['logged_user'] !== "")
 	imagecopymerge_alpha($dest, $src , 140 , 30 , 0 , 0 , 100 , 100 , 100 );
 	unlink("./save/tmp.png");
 	imagepng($dest, './save/'.date("Y-m-d-H-i-s").'.png');
+	$sth = $dbh->prepare("SELECT UserID FROM User WHERE Login=?");
+	$sth->execute(array($_SESSION['logged_user']));
+	$row = $sth->fetch(PDO::FETCH_ASSOC);
+	if (!$row)
+	{
+		echo "Something went wrong";
+		return ;
+	}
 	$name = './save/'.date("Y-m-d-H-i-s").'.png';
-	$sth = $dbh->prepare("INSERT INTO Photo VALUES (NULL, ?, ?, NULL)");
-	$sth->execute(array($_SESSION['logged_user'], $name));
+	$sth = $dbh->prepare("INSERT INTO Photo VALUES (NULL, ?, ?, 0)");
+	$sth->execute(array($row['UserID'], $name));
 }
 ?>

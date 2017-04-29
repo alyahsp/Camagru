@@ -1,17 +1,16 @@
 (function() {
-	var xhr = new XMLHttpRequest;
-	xhr.onreadystatechange = ensureReadiness;
-
-	function ensureReadiness() {
-		if(xhr.readyState < 4) {
-			return;
-		}
-		if(xhr.status !== 200) {
-			return;
-		}
-		else if (xhr.readyState == 4)
-			console.log(xhr.responseText);
-	}
+	// xhr.onreadystatechange = ensureReadiness;
+	//
+	// function ensureReadiness() {
+	// 	if(xhr.readyState < 4) {
+	// 		return;
+	// 	}
+	// 	if(xhr.status !== 200) {
+	// 		return;
+	// 	}
+	// 	else if (xhr.readyState == 4)
+	// 		console.log(xhr.responseText);
+	// }
 
 	var streaming = false,
 	video	  = document.querySelector('#video'),
@@ -56,6 +55,7 @@
 	}, false);
 
 	function takepicture() {
+		var xhr = new XMLHttpRequest;
 		var check;
 		if (check = document.getElementById("photo"))
 			check.parentNode.removeChild(check);

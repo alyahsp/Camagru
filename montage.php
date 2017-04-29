@@ -6,6 +6,14 @@
 		include "index.php";
 		return;
 	}
+	require_once('./config/database.php');
+	try{
+		$dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+		$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	}catch (PDOException $e){
+		echo 'Connection failed: ' . $e->getMessage();
+		exit;
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -14,20 +22,6 @@
 		<link rel="stylesheet" href="css/header.css">
 		<link rel="stylesheet" href="css/montage.css">
 		<script>
-
-		var xhr = new XMLHttpRequest;
-		xhr.onreadystatechange = ensureReadiness;
-
-		function ensureReadiness() {
-			if(xhr.readyState < 4) {
-				return;
-			}
-			if(xhr.status !== 200) {
-				return;
-			}
-			else if (xhr.readyState == 4)
-				console.log(xhr.responseText);
-		}
 
 		function chosenfilter()
 		{
@@ -43,6 +37,17 @@
 
 		function save_img()
 		{
+			var xhr = new XMLHttpRequest;
+			xhr.onreadystatechange = function() {
+				if(xhr.readyState < 4) {
+					return;
+				}
+				if(xhr.status !== 200) {
+					return;
+				}
+				else if (xhr.readyState == 4)
+					console.log(xhr.responseText);
+			}
 			var chosen = chosenfilter();
 			var img = document.getElementById("photo");
 			var tosend = "src=" + img.src + "&filter=" + chosen;
@@ -83,7 +88,17 @@
 			<button id="save" disabled onclick="save_img()">Save</button>
 		</div>
 		<div class="side">
-			<img id="savedphoto">
+			<?php
+				$sth = $dbh->prepare("SELECT Photo.PicURL FROM Photo INNER JOIN User
+					ON Photo.UserID= User.UserID WHERE User.Login=?");
+				$sth->execute(array($_SESSION['logged_user']));
+				$row = $sth->fetchAll(PDO::FETCH_COLUMN, 0);
+				// print_r($row);
+				// var_dump($row[0]);
+				foreach ($row as $pic)
+					echo "<img style='height:172.5px; width:230px;' src='".$pic."'><br />";
+				// echo "<img width='240' height='180' src='" . $row[0] . "' ><br/>";
+			?>
 		</div>
 	</div>
 	<div class="footer">
