@@ -38,7 +38,6 @@ if (isset($_SESSION['logged_user']) && $_SESSION['logged_user'] !== "")
 		echo "Something went wrong";
 		return ;
 	}
-	$name = './save/'.date("Y-m-d-H-i-s").'.png';
 	$sth = $dbh->prepare("INSERT INTO Photo VALUES (NULL, ?, ?, 0)");
 	$sth->execute(array($row['UserID'], $name));
 }

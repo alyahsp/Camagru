@@ -35,6 +35,30 @@
 			return chosen;
 		}
 
+		// function put_filter()
+		// {
+		// 	var xhr = new XMLHttpRequest;
+		// 	var check;
+		// 	if (check = document.getElementById("photo"))
+		// 		check.parentNode.removeChild(check);
+		// 	var chosen = chosenfilter();
+		// 	var img = document.createElement("img");
+		// 	img.id = "photo";
+		// 	document.getElementById("preview").appendChild(img);
+		// 	var sending = "src=" + document.getElementById('file').value + "&filter=" + chosen;
+		// 	console.log(encodeURI(document.getElementById('file').files[0].name));
+		// 	xhr.open("POST", "add_filter.php", true);
+		// 	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		// 	xhr.send(sending);
+		// 	xhr.onreadystatechange = function(){
+		// 	if (this.readyState == 4 && this.status == 200)
+		// 		photo.setAttribute('src', "data:image/png;base64,"+this.responseText);
+		// 	}
+		// 	var save = document.getElementById("save");
+		// 	save.disabled = false;
+		// 	save.style.backgroundColor = 'rgba(56, 151, 240, 1.0)';
+		// }
+
 		function save_img()
 		{
 			var xhr = new XMLHttpRequest;
@@ -46,7 +70,7 @@
 					return;
 				}
 				else if (xhr.readyState == 4)
-					console.log(xhr.responseText);
+					window.location.reload();
 			}
 			var chosen = chosenfilter();
 			var img = document.getElementById("photo");
@@ -65,7 +89,9 @@
 		<div id="main">
 			<div class="camera">
 				<video id="video"></video>
-				<button id="startbutton">Create Preview</button>
+				<button id="startbutton">Capture</button><p>or</p>
+				<input id="file" type="file" value="Choose File"/>
+				<button id="uploadbutton" onclick="put_filter()">Upload</button>
 			</div>
 			<div class="filter">
 				<form>
@@ -89,14 +115,15 @@
 		</div>
 		<div class="side">
 			<?php
-				$sth = $dbh->prepare("SELECT Photo.PicURL FROM Photo INNER JOIN User
-					ON Photo.UserID= User.UserID WHERE User.Login=?");
+				$sth = $dbh->prepare("SELECT Photo.PhotoID, Photo.PicURL FROM Photo INNER JOIN User
+					ON Photo.UserID= User.UserID WHERE User.Login=? ORDER BY Photo.PhotoID DESC");
 				$sth->execute(array($_SESSION['logged_user']));
-				$row = $sth->fetchAll(PDO::FETCH_COLUMN, 0);
-				// print_r($row);
-				// var_dump($row[0]);
+				$row = $sth->fetchAll(PDO::FETCH_COLUMN, 1);
 				foreach ($row as $pic)
+				{
+					echo "<button id='trash'><img width='30' height='30' src='img/trash.svg'></button>";
 					echo "<img style='height:172.5px; width:230px;' src='".$pic."'><br />";
+				}
 				// echo "<img width='240' height='180' src='" . $row[0] . "' ><br/>";
 			?>
 		</div>

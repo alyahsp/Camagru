@@ -1,17 +1,4 @@
 (function() {
-	// xhr.onreadystatechange = ensureReadiness;
-	//
-	// function ensureReadiness() {
-	// 	if(xhr.readyState < 4) {
-	// 		return;
-	// 	}
-	// 	if(xhr.status !== 200) {
-	// 		return;
-	// 	}
-	// 	else if (xhr.readyState == 4)
-	// 		console.log(xhr.responseText);
-	// }
-
 	var streaming = false,
 	video	  = document.querySelector('#video'),
 	canvas	 = document.querySelector('#canvas'),
@@ -77,6 +64,7 @@
 		}
 		var save = document.getElementById("save");
 		save.disabled = false;
+		save.style.backgroundColor = 'rgba(56, 151, 240, 1.0)';
 	}
 
 	startbutton.addEventListener('click', function(ev){
