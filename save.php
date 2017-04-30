@@ -28,7 +28,8 @@ if (isset($_SESSION['logged_user']) && $_SESSION['logged_user'] !== "")
 	$dest = imagecreatefrompng("./save/tmp.png");
 	imagecopymerge_alpha($dest, $src , 140 , 30 , 0 , 0 , 100 , 100 , 100 );
 	unlink("./save/tmp.png");
-	imagepng($dest, './save/'.date("Y-m-d-H-i-s").'.png');
+	$name = './save/'.date("Y-m-d-H-i-s").'.png';
+	imagepng($dest, $name);
 	$sth = $dbh->prepare("SELECT UserID FROM User WHERE Login=?");
 	$sth->execute(array($_SESSION['logged_user']));
 	$row = $sth->fetch(PDO::FETCH_ASSOC);
