@@ -79,8 +79,24 @@
 					return;
 				else if (xhr.readyState == 4)
 					window.location.reload();
+			}
 		}
-
+		function remove_heart(photoID)
+		{
+			var xhr = new XMLHttpRequest;
+			var sending = "PhotoID=" + photoID;
+			xhr.open("POST", "remove_like.php", true);
+			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhr.send(sending);
+			xhr.onreadystatechange = function() {
+				if(xhr.readyState < 4)
+					return;
+				if(xhr.status !== 200)
+					return;
+				else if (xhr.readyState == 4)
+					window.location.reload();
+			}
+		}
 		</script>
 	</head>
 	<body>
@@ -104,14 +120,22 @@
 		{
 			foreach ($row as $pic)
 			{
+				$st = $dbh->prepare("SELECT UserID FROM User WHERE Login=?");
+				$st->execute(array($_SESSION['logged_user']));
+				$rw = $st->fetch(PDO::FETCH_ASSOC);
+				$sth = $dbh->prepare("SELECT * FROM Heart WHERE PhotoID=?");
+				$sth->execute(array($pic['PhotoID']));
+				$tab = $sth->fetch(PDO::FETCH_ASSOC);
 				echo "<div id='pic'>";
 				echo "<img id='img' src='". $pic['PicURL'] ."'><br/>";
-				if (!isset($pic['Hearted']))
+				if (!$tab)
 					echo "<img id='heart' onclick='add_heart(". $pic['PhotoID']. ")' width='50' height='50' src='./img/heart.svg'><br/>";
+				else
+					echo "<img onclick='remove_heart(". $pic['PhotoID']. ")' width='50' height='50' src='./img/hearted.svg'";
 				echo "<p>".$pic['Likes']." likes</p>";
-				// else
-				// 	echo "<img width='50' height='50' src='./img/hearted.svg'";
+				echo "";
 				echo "</div>";
+				unset($tab);
 			}
 		}
 	?>
