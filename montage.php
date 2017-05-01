@@ -39,7 +39,6 @@
 		{
 			var xhr = new XMLHttpRequest;
 			var sending = "photo=" + val;
-			console.log(sending);
 			xhr.open("POST", "del_img.php", true);
 			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xhr.send(sending);
@@ -63,11 +62,10 @@
 			var img = document.createElement("img");
 			img.id = "photo";
 			document.getElementById("preview").appendChild(img);
-			var sending = "src=" + document.getElementById('file').value + "&filter=" + chosen;
-			console.log(document.getElementById('file').files[0].name);
+			var sending = "src=" + document.getElementById('file').files[0].name + "&filter=" + chosen;
 			// xhr.open("POST", "add_filter.php", true);
-			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xhr.send(sending);
+			// xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			// xhr.send(sending);
 			// xhr.onreadystatechange = function(){
 			// if (this.readyState == 4 && this.status == 200)
 			// 	photo.setAttribute('src', "data:image/png;base64,"+this.responseText);
