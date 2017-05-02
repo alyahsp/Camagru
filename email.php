@@ -15,6 +15,12 @@
 			echo "Please enter a valid login/password/email";
 			return ;
 		}
+		if (strlen($_POST['passwd']) < 7) {
+			echo "Password too short!";
+		if (!preg_match("#[0-9]+#", $_POST['passwd'])) {
+			echo "Password must include at least one number!";
+		if (!preg_match("#[a-zA-Z]+#", $_POST['passwd'])) {
+			echo "Password must include at least one letter!";
 		$sth = $dbh->prepare("SELECT * FROM User WHERE Login=? OR Email=?");
 		$sth->execute(array($_POST['login'], $_POST['email']));
 		$row = $sth->fetch(PDO::FETCH_ASSOC);

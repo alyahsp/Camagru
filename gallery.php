@@ -81,6 +81,7 @@
 					window.location.reload();
 			}
 		}
+
 		function remove_heart(photoID)
 		{
 			var xhr = new XMLHttpRequest;
@@ -95,6 +96,25 @@
 					return;
 				else if (xhr.readyState == 4)
 					window.location.reload();
+			}
+		}
+
+		function subComment(e, photoID) {
+			if (e.keyCode == 13) {
+				var comment = document.getElementById('c' + photoID).value;
+				var xhr = new XMLHttpRequest;
+				var sending = "PhotoID=" + photoID + "&comment=" + comment;
+				xhr.open("POST", "post_comment.php", true);
+				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				xhr.send(sending);
+				xhr.onreadystatechange = function() {
+					if(xhr.readyState < 4)
+						return;
+					if(xhr.status !== 200)
+						return;
+					else if (xhr.readyState == 4)
+						window.location.reload();
+				}
 			}
 		}
 		</script>
@@ -134,7 +154,7 @@
 					echo "<section><img id='heart' onclick='add_heart(". $pic['PhotoID']. ")' width='30' height='30' src='./img/heart.svg'>";
 				else
 					echo "<section><img id='heart' onclick='remove_heart(". $pic['PhotoID']. ")' width='30' height='30' src='./img/hearted.svg'>";
-				echo "<input type='text' class='comment' aria-label='Add a comment…' placeholder='Add a comment…'' value=''></section>";
+				echo "<input id='c". $pic['PhotoID'] ."' type='text' onkeypress='return subComment(event, " .$pic['PhotoID']. ")' class='comment' aria-label='Add a comment…' placeholder='Add a comment…'' value=''></section>";
 				echo "</div>";
 				unset($tab);
 			}
