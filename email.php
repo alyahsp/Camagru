@@ -13,18 +13,22 @@
 		if (!$_POST['login'] || !$_POST['passwd'] || !$_POST['email'])
 		{
 			echo "Please enter a valid login/password/email";
+			include "index.php";
 			return ;
 		}
-		if (strlen($_POST['passwd']) < 7) {
+		if (strlen($_POST['passwd']) < 6) {
 			echo "Password too short!";
+			include "index.php";
 			return ;
 		}
 		if (!preg_match("#[0-9]+#", $_POST['passwd'])) {
 			echo "Password must include at least one number!";
+			include "index.php";
 			return ;
 		}
 		if (!preg_match("#[a-zA-Z]+#", $_POST['passwd'])) {
 			echo "Password must include at least one letter!";
+			include "index.php";
 			return ;
 		}
 		$sth = $dbh->prepare("SELECT * FROM User WHERE Login=? OR Email=?");

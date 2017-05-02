@@ -16,6 +16,7 @@
 <head>
 	<title>Camagru</title>
 	<link rel="stylesheet" href="css/header.css">
+	<link rel="stylesheet" href="css/gallery.css">
 </head>
 <body>
 	<div class="header">
@@ -164,12 +165,8 @@
 				echo "<p id='likes'>".$pic['Likes']." likes</p>";
 				if ($com)
 				{
-					// echo "<ul>";
 					foreach($com as $comment)
-					{
 						echo "<div><p id='name'>" . $comment['Login'] . "<span class='com'> ".$comment['Content']."</span></p></div>";
-					}
-					// echo "</ul>";
 				}
 				if (!$tab)
 					echo "<section><img id='heart' onclick='add_heart(". $pic['PhotoID']. ")' width='30' height='30' src='./img/heart.svg'>";

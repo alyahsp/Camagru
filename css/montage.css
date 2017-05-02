@@ -52,10 +52,10 @@
 }
 
 #trash{
-vertical-align:top;
-padding: 0 0 0 0;
-cursor: pointer;
-cursor: hand;
+	vertical-align:top;
+	padding: 0 0 0 0;
+	cursor: pointer;
+	cursor: hand;
 }
 
 .divider{
@@ -68,15 +68,27 @@ cursor: hand;
 	margin-right: auto;
 
 }
+@media screen and (max-width: 796px)
+{
+	.side{
+		display:none;
+	}
+	.filter{
+		width:380px;
+	}
+}
 
-.side{
-	float: right;
-	/*display: flex;*/
-	overflow:scroll;
-	padding:10px;
-	background-color: white;
-	/*border: 1px solid rgba(0,0,0,.0975);*/
-	/*margin-top: 100px;*/
-	width: 390px;
-	height: 550px;
+@media screen and (min-width: 797px)
+{
+	.side{
+		float: right;
+		/*display: flex;*/
+		overflow:scroll;
+		padding:10px;
+		background-color: white;
+		/*border: 1px solid rgba(0,0,0,.0975);*/
+		/*margin-top: 100px;*/
+		width: 390px;
+		height: 550px;
+	}
 }
