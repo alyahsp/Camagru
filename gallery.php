@@ -128,12 +128,12 @@
 				$tab = $sth->fetch(PDO::FETCH_ASSOC);
 				echo "<div id='pic'>";
 				echo "<img id='img' src='". $pic['PicURL'] ."'><br/>";
+				echo "<p id='likes'>".$pic['Likes']." likes</p>";
 				if (!$tab)
-					echo "<img id='heart' onclick='add_heart(". $pic['PhotoID']. ")' width='50' height='50' src='./img/heart.svg'><br/>";
+					echo "<section><img id='heart' onclick='add_heart(". $pic['PhotoID']. ")' width='30' height='30' src='./img/heart.svg'>";
 				else
-					echo "<img onclick='remove_heart(". $pic['PhotoID']. ")' width='50' height='50' src='./img/hearted.svg'";
-				echo "<p>".$pic['Likes']." likes</p>";
-				echo "";
+					echo "<section><img id='heart' onclick='remove_heart(". $pic['PhotoID']. ")' width='30' height='30' src='./img/hearted.svg'>";
+				echo "<input type='text' class='comment' aria-label='Add a comment…' placeholder='Add a comment…'' value=''></section>";
 				echo "</div>";
 				unset($tab);
 			}

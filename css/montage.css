@@ -31,6 +31,8 @@
 	font-family: "Lucida Grande", "Arial", sans-serif;
 	color: rgba(255, 255, 255, 1.0);
 	border-radius: 5px;
+	cursor: pointer;
+	cursor: hand;
 }
 
 #save{
@@ -52,6 +54,8 @@
 #trash{
 vertical-align:top;
 padding: 0 0 0 0;
+cursor: pointer;
+cursor: hand;
 }
 
 .divider{

@@ -1,16 +1,46 @@
+section{
+/*width:100%;*/
+margin-left:15px;
+}
+
+.comment{
+	/*vertical-align: baseline;*/
+	margin-left: 10px;
+	margin-bottom: 10px;
+	border: none;
+	line-height: 25px;
+	width: 320px;
+	outline: none;
+}
+
 #gallery{
 	margin-top:50px;
 	/*margin-left: auto;
 	margin-right: auto;*/
-	text-align: center;
+	/*text-align: center;*/
 }
 
 #pic{
+	width: 420px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #fff;
+	border: 1px solid #e6e6e6;
+	border-radius: 3px;
 	margin-bottom: 20px;
 }
 
-#heart, p{
+#heart{
 	padding:0;
+	cursor: pointer;
+	cursor: hand;
+}
+
+#likes{
+	margin-left: 15px;
+	font-weight:600;
+	/*font-size: 15px;*/
+	font-family: arial;
 }
 
 #img{
