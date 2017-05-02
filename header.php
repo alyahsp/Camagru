@@ -17,7 +17,7 @@
 	</div>
 	<div class="montage">
 		<a href="account.php">
-			<img class="mnt" alt="Account" src="img/account.svg">
+			<img class="mnt" alt="Account Settings" src="img/account.svg">
 		</a>
 	</div>
 	<div class="footer">
