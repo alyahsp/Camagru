@@ -127,6 +127,7 @@
 				$sth->execute(array($pic['PhotoID']));
 				$tab = $sth->fetch(PDO::FETCH_ASSOC);
 				echo "<div id='pic'>";
+				echo "<p id='name'>" . $pic['Login'] . "</p>";
 				echo "<img id='img' src='". $pic['PicURL'] ."'><br/>";
 				echo "<p id='likes'>".$pic['Likes']." likes</p>";
 				if (!$tab)
