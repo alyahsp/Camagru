@@ -35,7 +35,9 @@
 	</div>
 	<div id="gallery">
 	<?php
-		$stmt = $dbh->prepare("SELECT * FROM Photo ORDER BY PhotoID DESC");
+		$stmt = $dbh->prepare("SELECT P.PhotoID as PhotoID, PicURL, Likes,
+			U.Login as Login FROM Photo P JOIN User U ON P.UserID = U.UserID
+			ORDER BY PhotoID DESC");
 		$stmt->execute();
 		$row = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		if (!$row)
@@ -45,7 +47,9 @@
 			foreach ($row as $pic)
 			{
 				echo "<div id='pic'>";
-				echo "<img src='". $pic['PicURL'] ."'>";
+				echo "<p id='name'>" . $pic['Login'] . "</p>";
+				echo "<img id='img' src='". $pic['PicURL'] ."'><br/>";
+				echo "<p id='likes'>".$pic['Likes']." likes</p>";
 				echo "</div>";
 			}
 		}
@@ -113,8 +117,13 @@
 					if(xhr.status !== 200)
 						return;
 					else if (xhr.readyState == 4)
+					{
+						console.log('why not?');
+						console.log('why not?');
 						window.location.reload();
+					}
 				}
+				return false;
 			}
 		}
 		</script>
@@ -146,10 +155,22 @@
 				$sth = $dbh->prepare("SELECT * FROM Heart WHERE PhotoID=?");
 				$sth->execute(array($pic['PhotoID']));
 				$tab = $sth->fetch(PDO::FETCH_ASSOC);
+				$s = $dbh->prepare("SELECT Content, U.Login as Login FROM Comment C INNER JOIN User U ON C.UserID=U.UserID WHERE PhotoID=?");
+				$s->execute(array($pic['PhotoID']));
+				$com = $s->fetchAll(PDO::FETCH_ASSOC);
 				echo "<div id='pic'>";
 				echo "<p id='name'>" . $pic['Login'] . "</p>";
 				echo "<img id='img' src='". $pic['PicURL'] ."'><br/>";
 				echo "<p id='likes'>".$pic['Likes']." likes</p>";
+				if ($com)
+				{
+					// echo "<ul>";
+					foreach($com as $comment)
+					{
+						echo "<div><p id='name'>" . $comment['Login'] . "<span class='com'> ".$comment['Content']."</span></p></div>";
+					}
+					// echo "</ul>";
+				}
 				if (!$tab)
 					echo "<section><img id='heart' onclick='add_heart(". $pic['PhotoID']. ")' width='30' height='30' src='./img/heart.svg'>";
 				else
