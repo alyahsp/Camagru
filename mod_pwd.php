@@ -1,4 +1,5 @@
 <?php
+session_start();
 if ($_SESSION['logged_user'] !== "" && isset($_SESSION['logged_user']))
 {
 	if (!$_POST['oldpwd'] || !$_POST['newpwd'])
