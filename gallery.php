@@ -153,8 +153,8 @@
 				$st = $dbh->prepare("SELECT UserID FROM User WHERE Login=?");
 				$st->execute(array($_SESSION['logged_user']));
 				$rw = $st->fetch(PDO::FETCH_ASSOC);
-				$sth = $dbh->prepare("SELECT * FROM Heart WHERE PhotoID=?");
-				$sth->execute(array($pic['PhotoID']));
+				$sth = $dbh->prepare("SELECT * FROM Heart WHERE PhotoID=? AND UserID=?");
+				$sth->execute(array($pic['PhotoID'], $rw['UserID']));
 				$tab = $sth->fetch(PDO::FETCH_ASSOC);
 				$s = $dbh->prepare("SELECT Content, U.Login as Login FROM Comment C INNER JOIN User U ON C.UserID=U.UserID WHERE PhotoID=?");
 				$s->execute(array($pic['PhotoID']));

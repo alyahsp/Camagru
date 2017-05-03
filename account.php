@@ -16,7 +16,7 @@
 			<div class="new_client">
 				<h3>Hello, <?=$_SESSION['logged_user'];?></h3>
 				<form action="mod_login.php" method="post">
-					<input class="txtbox" type="text" name="login" placeholder="Login" placeholder="Username" value="<?=$_SESSION['logged_user'];?>"/><br/>
+					<input class="txtbox" type="text" name="login" value="<?=$_SESSION['logged_user'];?>"/><br/>
 					<input class="button" type="submit" name="submit" value="Change Login" /> <br />
 				</form>
 			</div>
@@ -24,10 +24,9 @@
 				<p class="or">or</p>
 				<div class="line"></div>
 			</div>
-				<!-- <h3>Already have an <br/>account?</h3> -->
 				<form action="mod_pwd.php" method="post">
-					<input class="txtbox" type="text" name="login" placeholder="Old Password" value="" /><br/>
-					<input class="txtbox" type="password" name="passwd" placeholder="New Password" value=""/><br/>
+					<input class="txtbox" type="password" name="oldpwd" placeholder="Old Password" value="" /><br/>
+					<input class="txtbox" type="password" name="newpwd" placeholder="New Password" value=""/><br/>
 					<input class="button" type="submit" name="submit" value="Change Password" /> <br />
 				</form>
 			<div class="divider">
