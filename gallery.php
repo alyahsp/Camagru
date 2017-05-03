@@ -135,11 +135,9 @@
 	?>
 	<div id="gallery">
 	<?php
-		$stmt = $dbh->prepare("SELECT P.PhotoID as PhotoID, PicURL, Likes,
-			H.HeartID as HeartID, U.Login as Login, H.Hearted as Hearted
+		$stmt = $dbh->prepare("SELECT P.PhotoID as PhotoID, PicURL, Likes, U.Login as Login
 			FROM Photo P
 			JOIN User U ON P.UserID = U.UserID
-			LEFT JOIN Heart H ON U.UserID = H.UserID
 			LEFT JOIN Comment C ON P.PhotoID = C.PhotoID
 			ORDER BY PhotoID DESC");
 		$stmt->execute();
@@ -150,11 +148,8 @@
 		{
 			foreach ($row as $pic)
 			{
-				$st = $dbh->prepare("SELECT UserID FROM User WHERE Login=?");
-				$st->execute(array($_SESSION['logged_user']));
-				$rw = $st->fetch(PDO::FETCH_ASSOC);
-				$sth = $dbh->prepare("SELECT * FROM Heart WHERE PhotoID=? AND UserID=?");
-				$sth->execute(array($pic['PhotoID'], $rw['UserID']));
+				$sth = $dbh->prepare("SELECT HeartID FROM Heart H INNER JOIN User U ON H.UserID=U.UserID WHERE PhotoID=? AND U.Login=?");
+				$sth->execute(array($pic['PhotoID'], $_SESSION['logged_user']));
 				$tab = $sth->fetch(PDO::FETCH_ASSOC);
 				$s = $dbh->prepare("SELECT Content, U.Login as Login FROM Comment C INNER JOIN User U ON C.UserID=U.UserID WHERE PhotoID=?");
 				$s->execute(array($pic['PhotoID']));
@@ -168,7 +163,7 @@
 					foreach($com as $comment)
 						echo "<div><p id='name'>" . $comment['Login'] . "<span class='com'> ".$comment['Content']."</span></p></div>";
 				}
-				if (!$tab)
+				if (empty($tab))
 					echo "<section><img id='heart' onclick='add_heart(". $pic['PhotoID']. ")' width='30' height='30' src='./img/heart.svg'>";
 				else
 					echo "<section><img id='heart' onclick='remove_heart(". $pic['PhotoID']. ")' width='30' height='30' src='./img/hearted.svg'>";

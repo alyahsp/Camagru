@@ -52,6 +52,29 @@
 			}
 		}
 
+		function getExtension(filename) {
+			var parts = filename.split('.');
+			return parts[parts.length - 1];
+		}
+
+		function isImage(filename) {
+			var ext = getExtension(filename);
+			switch (ext.toLowerCase()) {
+				case 'jpg':
+				case 'jpeg':
+				case 'png':
+				return true;
+			}
+			return false;
+		}
+
+		function isImage(filename)
+		{
+			if (filename.split('.').pop() == 'png')
+				return (true);
+			return false;
+		}
+
 		function put_filter()
 		{
 			var xhr = new XMLHttpRequest;
@@ -62,17 +85,32 @@
 			var img = document.createElement("img");
 			img.id = "photo";
 			document.getElementById("preview").appendChild(img);
-			var sending = "src=" + document.getElementById('file').files[0].name + "&filter=" + chosen;
-			// xhr.open("POST", "add_filter.php", true);
-			// xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			// xhr.send(sending);
-			// xhr.onreadystatechange = function(){
-			// if (this.readyState == 4 && this.status == 200)
-			// 	photo.setAttribute('src', "data:image/png;base64,"+this.responseText);
-			// }
-			var save = document.getElementById("save");
-			save.disabled = false;
-			save.style.backgroundColor = 'rgba(56, 151, 240, 1.0)';
+			var file = document.querySelector('input[type=file]').files[0];
+			var check = document.querySelector('input[type=file]').files[0].name;
+			if (!file || !isImage(check))
+			{
+				alert('Please select a png file');
+				return ;
+			}
+			var reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = function () {
+					var src = reader.result;
+					var sending = "src=" + src + "&filter=" + chosen;
+					xhr.open("POST", "add_filter.php", true);
+					xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+					xhr.send(sending);
+					xhr.onreadystatechange = function(){
+						if (this.readyState == 4 && this.status == 200)
+						photo.setAttribute('src', "data:image/png;base64,"+this.responseText);
+					}
+					var save = document.getElementById("save");
+					save.disabled = false;
+					save.style.backgroundColor = 'rgba(56, 151, 240, 1.0)';
+			};
+			reader.onerror = function (error) {
+			console.log('Error: ', error);
+			};
 		}
 
 		function save_img()
@@ -140,7 +178,6 @@
 					echo "<button id='trash' onclick='del_img(this.value)' value='".$pic['PhotoID']."'><img width='30' height='30' src='img/trash.svg'></button>";
 					echo "<img style='height:172.5px; width:230px;' src='".$pic['PicURL']."'><br />";
 				}
-				// echo "<img width='240' height='180' src='" . $row[0] . "' ><br/>";
 			?>
 		</div>
 	</div>

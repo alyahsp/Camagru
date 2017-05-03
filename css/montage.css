@@ -35,13 +35,13 @@
 	cursor: hand;
 }
 
-#save{
+#save, #uploadbutton{
 	background-color: rgba(192,192,192, 1.0);
 }
 
 #main{
 	width: 420px;
-	height:860px;
+	/*height:860px;*/
 	padding:10px;
 	margin-right: 30px;
 	margin-bottom: 30px;
