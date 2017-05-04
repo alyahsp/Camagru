@@ -9,6 +9,11 @@
 			include "index.php";
 			return ;
 		}
+		if (!ctype_alnum($_POST['login']) {
+			echo "Login can only contain letters and numbers!";
+			include "index.php";
+			return ;
+		}
 		if (strlen($_POST['passwd']) < 6) {
 			echo "Password too short!";
 			include "index.php";
