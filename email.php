@@ -42,6 +42,7 @@
 		if ($row)
 		{
 			echo 'Login or email already exists';
+			include "index.php";
 			$sth = null;
 			$dbh = null;
 			return ;
