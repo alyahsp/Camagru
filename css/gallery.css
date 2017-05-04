@@ -20,7 +20,7 @@ margin-left:15px;
 @media screen and (max-width:430px)
 {
 	#pic{
-		width: 380px;
+		width: 365px;
 		margin-left: auto;
 		margin-right: auto;
 		background-color: #fff;
@@ -29,8 +29,8 @@ margin-left:15px;
 		margin-bottom: 40px;
 	}
 	#img{
-		width:380px;
-		height: 285px;
+		width:365px;
+		height: 273.75px;
 	}
 }
 

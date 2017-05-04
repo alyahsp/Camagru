@@ -18,7 +18,23 @@ if (isset($_GET['uid']))
 		if (!$row || ($_POST['passwd'] !== $_POST['cfmpasswd'] || !$_POST['passwd']))
 		{
 			echo "An ERROR has occured!\n";
+			include "index.php";
 			return;
+		}
+		if (strlen($_POST['passwd']) < 6) {
+			echo "Password too short!";
+			include "index.php";
+			return ;
+		}
+		if (!preg_match("#[0-9]+#", $_POST['passwd'])) {
+			echo "Password must include at least one number!";
+			include "index.php";
+			return ;
+		}
+		if (!preg_match("#[a-zA-Z]+#", $_POST['passwd'])) {
+			echo "Password must include at least one letter!";
+			include "index.php";
+			return ;
 		}
 		$sth = $dbh->prepare("UPDATE User SET Password=? WHERE UserID=?");
 		$sth->execute(array(hash('whirlpool', $_POST['passwd']), $_GET['uid']));

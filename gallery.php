@@ -8,66 +8,6 @@
 		echo 'Connection failed: ' . $e->getMessage();
 		exit;
 	}
-	if ($_SESSION['logged_user'] === "" || !isset($_SESSION['logged_user']))
-	{
-?>
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Camagru</title>
-	<link rel="stylesheet" href="css/header.css">
-	<link rel="stylesheet" href="css/gallery.css">
-</head>
-<body>
-	<div class="header">
-		<div class="logo">
-			<a href="gallery.php">
-				<img alt="Camagru" src="img/Camagru.png">
-			</a>
-		</div>
-		<div class="logout">
-			<a href="index.php">
-				<img class="lgt" alt="Login" src="img/login.svg">
-			</a>
-		</div>
-		<div class="footer">
-			<p class="sp">spalmaro 2017</p>
-		</div>
-	</div>
-	<div id="gallery">
-	<?php
-		$stmt = $dbh->prepare("SELECT P.PhotoID as PhotoID, PicURL, Likes,
-			U.Login as Login FROM Photo P JOIN User U ON P.UserID = U.UserID
-			ORDER BY PhotoID DESC");
-		$stmt->execute();
-		$row = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		if (!$row)
-			echo "<h2>No Pictures Yet</h2>";
-		else
-		{
-			foreach ($row as $pic)
-			{
-				echo "<div id='pic'>";
-				echo "<p id='name'>" . $pic['Login'] . "</p>";
-				echo "<img id='img' src='". $pic['PicURL'] ."'><br/>";
-				echo "<p id='likes'>".$pic['Likes']." likes</p>";
-				$s = $dbh->prepare("SELECT Content, U.Login as Login FROM Comment C INNER JOIN User U ON C.UserID=U.UserID WHERE PhotoID=?");
-				$s->execute(array($pic['PhotoID']));
-				$com = $s->fetchAll(PDO::FETCH_ASSOC);
-				if ($com)
-					foreach($com as $comment)
-						echo "<div><p id='name'>" . $comment['Login'] . "<span class='com'> ".$comment['Content']."</span></p></div>";
-				echo "</div>";
-			}
-		}
-	?>
-	</div>
-</body>
-</html>
-<?php
-	}
-	else
-	{
 ?>
 <!DOCTYPE html>
 <html>
@@ -133,7 +73,25 @@
 	</head>
 	<body>
 	<?php
+	if ($_SESSION['logged_user'] !== "" && isset($_SESSION['logged_user']))
 		include "header.php";
+	else {
+		echo "<div class='header'>
+			<div class='logo'>
+					<a href='gallery.php'>
+						<img alt='Camagru' src='img/Camagru.png'>
+					</a>
+				</div>
+				<div class='logout'>
+					<a href='index.php'>
+						<img class='lgt' alt='Login' src='img/login.svg'>
+					</a>
+				</div>
+				<div class='footer'>
+					<p class='sp'>spalmaro 2017</p>
+				</div>
+			</div>";
+	}
 	?>
 	<div id="gallery">
 	<?php
@@ -172,7 +130,7 @@
 			$thc = $dbh->prepare("SELECT HeartID FROM Heart H INNER JOIN User U ON H.UserID=U.UserID WHERE PhotoID=? AND U.Login=?");
 			$thc->execute(array($pic['PhotoID'], $_SESSION['logged_user']));
 			$tab = $thc->fetch(PDO::FETCH_ASSOC);
-			$s = $dbh->prepare("SELECT Content, U.Login as Login FROM Comment C INNER JOIN User U ON C.UserID=U.UserID WHERE PhotoID=?");
+			$s = $dbh->prepare("SELECT Content, U.Login as Login FROM Comment C INNER JOIN User U ON C.UserID=U.UserID WHERE PhotoID=? ORDER BY CommentID ASC");
 			$s->execute(array($pic['PhotoID']));
 			$com = $s->fetchAll(PDO::FETCH_ASSOC);
 			echo "<div id='pic'>";
@@ -184,11 +142,14 @@
 				foreach($com as $comment)
 					echo "<div><p id='name'>" . $comment['Login'] . "<span class='com'> ".$comment['Content']."</span></p></div>";
 			}
-			if (empty($tab))
-				echo "<section><img id='heart' onclick='add_heart(". $pic['PhotoID']. ")' width='30' height='30' src='./img/heart.svg'>";
-			else
-				echo "<section><img id='heart' onclick='remove_heart(". $pic['PhotoID']. ")' width='30' height='30' src='./img/hearted.svg'>";
-			echo "<input id='c". $pic['PhotoID'] ."' type='text' onkeypress='return subComment(event, " .$pic['PhotoID']. ")' class='comment' aria-label='Add a comment…' placeholder='Add a comment…'' value=''></section>";
+			if ($_SESSION['logged_user'] !== "" && isset($_SESSION['logged_user']))
+			{
+				if (empty($tab))
+					echo "<section><img id='heart' onclick='add_heart(". $pic['PhotoID']. ")' width='30' height='30' src='./img/heart.svg'>";
+				else
+					echo "<section><img id='heart' onclick='remove_heart(". $pic['PhotoID']. ")' width='30' height='30' src='./img/hearted.svg'>";
+				echo "<input id='c". $pic['PhotoID'] ."' type='text' onkeypress='return subComment(event, " .$pic['PhotoID']. ")' class='comment' aria-label='Add a comment…' placeholder='Add a comment…'' value=''></section>";
+			}
 			echo "</div>";
 			unset($tab);
 		}
@@ -198,11 +159,12 @@
 		echo "<a id='pagination' href = \"$_PHP_SELF?page=$last\">Back | </a>";
 		echo "<a id='pagination' href = \"$_PHP_SELF?page=$page\">Next</a>";
 	}
-	else if( $page == 1)
+	else if( $page == 1 && $left_rec > 0)
 	{
+		echo $rec_count;
 		echo "<a id='pagination' href = \"$_PHP_SELF?page=$page\">Next</a>";
 	}
-	else if ( $left_rec < 1 ) {
+	else if ( $page != 1 && $left_rec < 1 ) {
 		$last = $page - 2;
 		echo "<a id='pagination' href = \"$_PHP_SELF?page=$last\">Back</a>";
 	}
@@ -211,6 +173,3 @@
 	</div>
 	</body>
 </html>
-<?php
-	}
-?>

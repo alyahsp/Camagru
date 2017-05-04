@@ -3,8 +3,8 @@
 
 	try{
 		$dbh = new PDO('mysql:host=localhost', $DB_USER, $DB_PASSWORD);
-		$dbh->query('CREATE DATABASE IF NOT EXISTS CamagrDB;');
-		$dbh->query('USE CamagrDB;');
+		$dbh->query('CREATE DATABASE IF NOT EXISTS CamagruDB;');
+		$dbh->query('USE CamagruDB;');
 		$dbh->query("CREATE TABLE IF NOT EXISTS User
 		(
 			UserID INT PRIMARY KEY AUTO_INCREMENT NOT NULL,

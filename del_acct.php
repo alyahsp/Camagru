@@ -39,11 +39,11 @@ if ($_SESSION['logged_user'] !== "" && isset($_SESSION['logged_user']))
 			unset($stmt);
 			unset($row);
 			unset($sth);
-			// $dbh = null;
+			$dbh = null;
 			return;
 		}
 	}
 }
 else
-	header('Location: index.php');
+	include "index.php";
 ?>

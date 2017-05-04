@@ -69,9 +69,14 @@
 			var img = document.createElement("img");
 			img.id = "photo";
 			document.getElementById("preview").appendChild(img);
+			if(document.getElementById("file").value == "")
+			{
+				alert('Please select a file');
+				return ;
+			}
 			var file = document.querySelector('input[type=file]').files[0];
 			var check = document.querySelector('input[type=file]').files[0].name;
-			if (!file || !isImage(check))
+			if (!isImage(check))
 			{
 				alert('Please select a png file');
 				return ;

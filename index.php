@@ -34,7 +34,7 @@
 					<input class="txtbox" type="password" name="passwd" placeholder="Password" value=""/><br/>
 					<input class="button" type="submit" name="submit" value="Login" /> <br />
 				</form>
-				<a href="forgotpwd.php">Forgot Password?</a>
+				<a id='forgot' href="forgotpwd.html">Forgot Password?</a>
 		</div>
 	</body>
 </html>

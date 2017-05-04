@@ -9,7 +9,7 @@
 			include "index.php";
 			return ;
 		}
-		if (!ctype_alnum($_POST['login']) {
+		if (!ctype_alnum($_POST['login'])) {
 			echo "Login can only contain letters and numbers!";
 			include "index.php";
 			return ;
@@ -48,12 +48,13 @@
 		}
 		else
 		{
+			$url = explode('MyWebSite/', getcwd());
 			$stmt = $dbh->prepare("INSERT INTO User VALUES (NULL, ?, ?, ?, False)");
 			$stmt->execute(array($_POST['login'], hash('whirlpool', $_POST['passwd']), $_POST['email']));
 			$emailTo = $_POST['email'];
 			$emailFrom = 'team@camagru.com';
 			$subject = "Camagru - Confirm Your Account";
-			$message = "To create your account, confirm by clicking on the link below <br/> <a href='http://localhost:8080/Camagru/create.php?uid=" . $_POST['login'] . "'>Confirm account</a>";
+			$message = "To create your account, confirm by clicking on the link below <br/> <a href='http://localhost:8080/" .$url[1]. "/create.php?uid=" . $_POST['login'] . "'>Confirm account</a>";
 			echo $mesage . "\n";
 			$headers = "From: " . $emailFrom . "\r\n";
 			$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
