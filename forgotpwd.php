@@ -51,11 +51,10 @@
 		}
 		else
 		{
-			print_r($row);
 			$emailTo = $_POST['email'];
 			$emailFrom = 'team@camagru.com';
 			$subject = "Camagru - Reset Password";
-			$message = "To reset your password, click on the link below <br/> <a href='http://localhost:8080/Camagru/reset.php?uid=" . $row['Login'] . "'>Reset Password</a>";
+			$message = "To reset your password, click on the link below <br/> <a href='http://localhost:8080/Camagru/reset.php?uid=" . $row['UserID'] . "'>Reset Password</a>";
 			$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 			mail($emailTo, $subject, $message, $headers);
 		}

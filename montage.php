@@ -52,22 +52,6 @@
 			}
 		}
 
-		function getExtension(filename) {
-			var parts = filename.split('.');
-			return parts[parts.length - 1];
-		}
-
-		function isImage(filename) {
-			var ext = getExtension(filename);
-			switch (ext.toLowerCase()) {
-				case 'jpg':
-				case 'jpeg':
-				case 'png':
-				return true;
-			}
-			return false;
-		}
-
 		function isImage(filename)
 		{
 			if (filename.split('.').pop() == 'png')
@@ -178,6 +162,9 @@
 					echo "<button id='trash' onclick='del_img(this.value)' value='".$pic['PhotoID']."'><img width='30' height='30' src='img/trash.svg'></button>";
 					echo "<img style='height:172.5px; width:230px;' src='".$pic['PicURL']."'><br />";
 				}
+				$sth = null;
+				$row = null;
+				$dbh = null;
 			?>
 		</div>
 	</div>

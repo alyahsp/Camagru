@@ -1,5 +1,6 @@
 body {
 	background-color: #fafafa;
+	padding-bottom: 60px;
 }
 
 .header {
@@ -42,7 +43,9 @@ body {
 }
 
 .footer{
+	/*margin-top: 30px;*/
 	border-top: 1px solid rgba(0,0,0,.0975);
+	height: 50px;
 	position: fixed;
 	bottom: 0;
 	width: 100%;

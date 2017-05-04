@@ -27,4 +27,5 @@ if (!$tab)
 }
 unset($tab);
 unset($stmt);
+$dbh = null;
 ?>

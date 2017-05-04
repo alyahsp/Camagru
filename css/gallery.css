@@ -4,7 +4,6 @@ margin-left:15px;
 }
 
 .comment{
-	/*vertical-align: baseline;*/
 	margin-left: 10px;
 	margin-bottom: 10px;
 	border: none;
@@ -16,9 +15,6 @@ margin-left:15px;
 
 #gallery{
 	margin-top:50px;
-	/*margin-left: auto;
-	margin-right: auto;*/
-	/*text-align: center;*/
 }
 
 @media screen and (max-width:430px)
@@ -51,10 +47,9 @@ margin-left:15px;
 	}
 	#img{
 		width:420px;
-		/*height: 285px;*/
+		height: 315px;
 	}
 }
-
 
 #heart{
 	padding:0;
@@ -65,8 +60,15 @@ margin-left:15px;
 #likes, #name{
 	margin-left: 15px;
 	font-weight:600;
-	/*font-size: 15px;*/
 	font-family: arial;
+}
+
+#pagination{
+	margin: 0 auto; display:block; text-align: center;
+	text-decoration: none;
+	color: #333;
+	font-family: "Interstate", Helvetica, Arial, sans-serif;
+	text-transform: uppercase;
 }
 
 .com{

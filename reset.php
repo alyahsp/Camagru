@@ -12,7 +12,7 @@ if (isset($_GET['uid']))
 {
 	if ($_POST['submit'] === "Reset Password")
 	{
-		$sth = $dbh->prepare("SELECT * FROM User WHERE Login=?");
+		$sth = $dbh->prepare("SELECT * FROM User WHERE UserID=?");
 		$sth->execute(array($_GET['uid']));
 		$row = $sth->fetch(PDO::FETCH_ASSOC);
 		if (!$row || ($_POST['passwd'] !== $_POST['cfmpasswd'] || !$_POST['passwd']))
@@ -20,7 +20,7 @@ if (isset($_GET['uid']))
 			echo "An ERROR has occured!\n";
 			return;
 		}
-		$sth = $dbh->prepare("UPDATE User SET Password=? WHERE Login=?");
+		$sth = $dbh->prepare("UPDATE User SET Password=? WHERE UserID=?");
 		$sth->execute(array(hash('whirlpool', $_POST['passwd']), $_GET['uid']));
 		header('Location: index.php');
 	}

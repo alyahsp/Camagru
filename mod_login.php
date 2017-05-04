@@ -27,6 +27,12 @@ if ($_SESSION['logged_user'] !== "" && isset($_SESSION['logged_user']))
 			include "account.php";
 			return;
 		}
+		else if (!ctype_alnum($_POST['login']))
+		{
+			echo "Usernames can only contain letters and numbers.";
+			include "account.php";
+			return;
+		}
 		else {
 			$sth = $dbh->prepare("UPDATE User SET Login=? WHERE Login=?");
 			$sth->execute(array($_POST['login'], $_SESSION['logged_user']));

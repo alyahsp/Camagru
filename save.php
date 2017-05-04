@@ -40,5 +40,8 @@ if (isset($_SESSION['logged_user']) && $_SESSION['logged_user'] !== "")
 	}
 	$sth = $dbh->prepare("INSERT INTO Photo VALUES (NULL, ?, ?, 0)");
 	$sth->execute(array($row['UserID'], $name));
+	$sth = null;
+	$dbh = null;
+	$row = null;
 }
 ?>

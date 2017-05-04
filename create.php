@@ -16,11 +16,15 @@
 		if (!$row)
 		{
 			echo "An ERROR has occured!\n";
+			$sth = null;
+			$dbh = null;
 			return;
 		}
 		$sth = $dbh->prepare("UPDATE User SET Active=True WHERE Login=?");
 		$sth->execute(array($_GET['uid']));
 		header('Location: index.php');
+		$sth = null;
+		$dbh = null;
 	}
 	else
 	{

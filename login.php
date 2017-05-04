@@ -16,12 +16,17 @@
 		if (!$row)
 		{
 			echo "<p>Invalid Login or Password<p>";
+			$stmt = null;
+			$dbh = null;
 			include "index.php";
 			return;
 		}
 		else
 		{
 			$_SESSION['logged_user'] = $_POST['login'];
+			$row = null;
+			$stmt = null;
+			$dbh = null;
 			header('Location: gallery.php');
 		}
 	}

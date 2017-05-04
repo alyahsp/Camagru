@@ -11,4 +11,6 @@ try{
 $stmt = $dbh->prepare("DELETE p FROM Photo p INNER JOIN User u
 	ON p.UserID= u.UserID WHERE PhotoID=? AND u.Login=?");
 $stmt->execute(array($_POST['photo'], $_SESSION['logged_user']));
+$stmt = null;
+$dbh = null;
 ?>

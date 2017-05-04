@@ -1,13 +1,6 @@
 <?php
 	session_start();
 	require_once('./config/database.php');
-	try{
-		$dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
-		$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	}catch (PDOException $e){
-		echo 'Connection failed: ' . $e->getMessage();
-		exit;
-	}
 	if ($_POST['submit'] === "Sign Up")
 	{
 		if (!$_POST['login'] || !$_POST['passwd'] || !$_POST['email'])
@@ -31,12 +24,21 @@
 			include "index.php";
 			return ;
 		}
+		try{
+			$dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+			$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		}catch (PDOException $e){
+			echo 'Connection failed: ' . $e->getMessage();
+			exit;
+		}
 		$sth = $dbh->prepare("SELECT * FROM User WHERE Login=? OR Email=?");
 		$sth->execute(array($_POST['login'], $_POST['email']));
 		$row = $sth->fetch(PDO::FETCH_ASSOC);
 		if ($row)
 		{
 			echo 'Login or email already exists';
+			$sth = null;
+			$dbh = null;
 			return ;
 		}
 		else
@@ -51,6 +53,9 @@
 			$headers = "From: " . $emailFrom . "\r\n";
 			$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 			mail($emailTo, $subject, $message, $headers);
+			$sth = null;
+			$stmt = null;
+			$dbh = null;
 ?>
 <!DOCTYPE html>
 <html>

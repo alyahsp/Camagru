@@ -31,5 +31,7 @@ if ($_SESSION['logged_user'] !== "" && isset($_SESSION['logged_user']))
 	$headers = "From: " . $emailFrom . "\r\n";
 	$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 	mail($emailTo, $subject, $message, $headers);
+	$s = null;
+	$dbh = null;
 }
 ?>

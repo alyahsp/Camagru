@@ -16,6 +16,8 @@ if ($_SESSION['logged_user'] !== "" && isset($_SESSION['logged_user']))
 		if (!$row)
 		{
 			echo "Invalid Password";
+			$stmt = null;
+			$dbh = null;
 			include "account.php";
 			return;
 		}
@@ -29,6 +31,7 @@ if ($_SESSION['logged_user'] !== "" && isset($_SESSION['logged_user']))
 			unset($stmt);
 			unset($row);
 			unset($sth);
+			$dbh = null;
 			return;
 		}
 	}
