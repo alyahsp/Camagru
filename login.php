@@ -10,7 +10,7 @@
 	}
 	if ($_POST['submit'] === "Login")
 	{
-		$stmt = $dbh->prepare("SELECT * FROM User WHERE Login=? AND Password=? AND Active=True");
+		$stmt = $dbh->prepare("SELECT * FROM User WHERE Login=? AND Password=?");
 		$stmt->execute(array($_POST['login'], hash('whirlpool', $_POST['passwd'])));
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		if (!$row)
@@ -21,13 +21,21 @@
 			include "index.php";
 			return;
 		}
-		else
+		else if ($row['Active'] == True)
 		{
 			$_SESSION['logged_user'] = $_POST['login'];
 			$row = null;
 			$stmt = null;
 			$dbh = null;
 			header('Location: gallery.php');
+		}
+		else
+		{
+			echo "<p>Check your email to confirm your account<p>";
+			$stmt = null;
+			$dbh = null;
+			include "index.php";
+			return;
 		}
 	}
 	else
