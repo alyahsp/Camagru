@@ -10,6 +10,14 @@ if ($_SESSION['logged_user'] !== "" && isset($_SESSION['logged_user']))
 	}
 	if ($_POST['submit'] === "Delete Account")
 	{
+		require_once('./config/database.php');
+		try{
+			$dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+			$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		}catch (PDOException $e){
+			echo 'Connection failed: ' . $e->getMessage();
+			exit;
+		}
 		$stmt = $dbh->prepare("SELECT * FROM User WHERE Login=? AND Password=? AND Active=True");
 		$stmt->execute(array($_SESSION['logged_user'], hash('whirlpool', $_POST['passwd'])));
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -31,7 +39,7 @@ if ($_SESSION['logged_user'] !== "" && isset($_SESSION['logged_user']))
 			unset($stmt);
 			unset($row);
 			unset($sth);
-			$dbh = null;
+			// $dbh = null;
 			return;
 		}
 	}
